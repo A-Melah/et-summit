@@ -1,4 +1,4 @@
-import Landing from "./landing.tsx/page";
+import Landing from "./landing/page";
 
 export default function Home() {
   return (
