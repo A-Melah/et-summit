@@ -88,7 +88,7 @@ const Speakers = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto space-y-16 animate-in fade-in duration-700 pb-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 animate-in fade-in duration-700 pb-20">
       {/* Header */}
       <section className="text-center md:text-left">
         <h2 className="text-3xl md:text-4xl font-black text-[#1D1D4B] border-l-8 border-[#D4A017] pl-5 mb-4">

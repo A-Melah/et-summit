@@ -60,6 +60,8 @@ const Sidebar = ({ isOpen, onClose, activeTab, setActiveTab }: SidebarProps) => 
             width={140}
             height={64}
             priority
+            className="h-auto w-auto" 
+    sizes="(max-width: 768px) 140px, 200px"
           />
         </div>
 

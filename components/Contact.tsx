@@ -164,15 +164,16 @@ const Contact = ({ initialSubject }: ContactProps) => {
           <form
             name="contact-us"
             method="POST"
+            // autoComplete="on"
             data-netlify="true"
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            <input type="hidden" name="form-name" value="contact-us" />
+            <input type="hidden" name="form-name" value="contact-us" autoComplete="on" />
 
             <div className="grid gap-6 sm:grid-cols-2">
-              <input required name="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Full Name" className="contact-input" />
-              <input required name="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="Email Address" className="contact-input" />
+              <input required name="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Full Name" className="contact-input" autoComplete="on" />
+              <input required name="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="Email Address" className="contact-input" autoComplete="on"/>
             </div>
 
             <select name="subject" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} className="contact-input text-gray-500">

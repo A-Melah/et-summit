@@ -42,7 +42,7 @@ const HomeHero = ({ setActiveTab }: HomeHeroProps) => {
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center animate-in fade-in slide-in-from-bottom-4 duration-700">
       
       {/* Left Column: Text Content */}
       <div className="lg:col-span-7 space-y-6 sm:space-y-8">
@@ -95,7 +95,7 @@ const HomeHero = ({ setActiveTab }: HomeHeroProps) => {
             download
             className="border-2 border-[#1D1D4B] text-[#1D1D4B] px-8 py-3 rounded-full font-bold hover:bg-[#1D1D4B] hover:text-white transition text-center text-sm"
           >
-            Download Brochure [cite: 13]
+            Download Brochure
           </a> */}
         </div>
 

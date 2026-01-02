@@ -89,7 +89,7 @@ const Sponsorship = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto space-y-16 pb-20 animate-in fade-in duration-700">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pb-20 animate-in fade-in duration-700">
       {/* --- Intro Section --- */}
       <section className="space-y-6">
         <h2 className="text-3xl md:text-5xl font-black text-[#1D1D4B] border-l-8 border-[#D4A017] pl-6">

@@ -4,7 +4,7 @@ import React from "react";
 
 const Register = () => {
   return (
-    <div className="max-w-5xl mx-auto space-y-16 pb-24 animate-in fade-in slide-in-from-bottom-6 duration-1000">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pb-24 animate-in fade-in slide-in-from-bottom-6 duration-1000">
       
       {/* --- Modern Hero Hook --- */}
       <section className="relative text-center py-10 md:py-20 px-6 rounded-[3rem] bg-white border border-slate-100 shadow-sm overflow-hidden">

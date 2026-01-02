@@ -48,7 +48,7 @@ const Introduction = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto space-y-16 animate-in fade-in duration-700 pb-2">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 animate-in fade-in duration-700 pb-2">
       
       {/* --- About Section --- */}
       <section className="space-y-6">
