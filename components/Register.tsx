@@ -62,15 +62,35 @@ const Register = () => {
             <h4 className="text-2xl font-black text-[#1D1D4B]">Secure Your Spot</h4>
           </div>
 
-          <a 
-            href="https://enterprisetransformationsummit2026.eventbrite.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full bg-[#1D1D4B] text-white py-6 rounded-2xl font-black text-lg shadow-xl hover:scale-[1.03] transition-all flex items-center justify-center gap-3 group"
-          >
-            REGISTER ON EVENTBRITE
-            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+<a 
+  href="https://enterprisetransformationsummit2026.eventbrite.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+    /* Layout & Sizing */
+    w-full flex items-center justify-center gap-2 sm:gap-3 
+    py-4 sm:py-6 px-4
+    
+    /* Typography */
+    text-base sm:text-lg font-black text-center text-white
+    
+    /* Aesthetics */
+    bg-[#1D1D4B] rounded-xl sm:rounded-2xl shadow-xl 
+    
+    /* Animations */
+    transition-all hover:scale-[1.02] active:scale-95 group"
+>
+  <span className="leading-tight">REGISTER ON EVENTBRITE</span>
+  
+  {/* <svg 
+    className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 group-hover:translate-x-1 transition-transform" 
+    fill="none" 
+    stroke="currentColor" 
+    viewBox="0 0 24 24"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+  </svg> */}
+</a>
           
           <p className="mt-6 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
             Admission is Free | First-come basis

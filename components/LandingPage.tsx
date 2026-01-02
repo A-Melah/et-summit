@@ -6,7 +6,6 @@ import HomeHero from "./HomeHero";
 import Introduction from "./Introduction";
 import Speakers from "./Speakers";
 import Sponsorship from "./Sponsorship";
-// import Committee from "./Committee";
 import Register from "./Register";
 import Contact from "./Contact";
 import FAQs from "./FAQs";
@@ -26,9 +25,10 @@ const hashToTab = (hash: string) =>
 const LandingPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<string>("Home");
-
-  // Shared state to pass the selected subject from FAQs to Contact Us
   const [contactSubject, setContactSubject] = useState("");
+
+  /* Scroll-to-top visibility */
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   /* ---------------------------
      Production-grade tab change
@@ -46,7 +46,7 @@ const LandingPage = () => {
   };
 
   /* ---------------------------
-     Restore state on refresh / deep link
+     Restore state on refresh
   ---------------------------- */
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
@@ -54,7 +54,6 @@ const LandingPage = () => {
     if (hash) {
       setActiveTab(hashToTab(hash));
     } else {
-      // Ensure Home exists in history
       window.history.replaceState(
         { tab: "Home" },
         "",
@@ -64,7 +63,7 @@ const LandingPage = () => {
   }, []);
 
   /* ---------------------------
-     Enable back button & swipe-back
+     Enable back button
   ---------------------------- */
   useEffect(() => {
     const handlePopState = (event: PopStateEvent) => {
@@ -75,10 +74,19 @@ const LandingPage = () => {
     };
 
     window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
+  /* ---------------------------
+     Scroll listener (Scroll to top)
+  ---------------------------- */
+  useEffect(() => {
+    const onScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
     };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   /* ---------------------------
@@ -130,14 +138,20 @@ const LandingPage = () => {
           `}
         >
           <div className="flex items-center justify-between px-4 py-3">
-            {/* Logo */}
-            <Image
-              src="/ets-logo.png"
-              alt="Enterprise Transformation Summit"
-              width={120}
-              height={40}
-              priority
-            />
+            {/* Clickable Logo → Home */}
+            <button
+              onClick={() => handleTabChange("Home")}
+              aria-label="Go to home"
+              className="focus:outline-none"
+            >
+              <Image
+                src="/ets-logo.png"
+                alt="Enterprise Transformation Summit"
+                width={120}
+                height={40}
+                priority
+              />
+            </button>
 
             {/* Animated Hamburger */}
             <button
@@ -180,6 +194,20 @@ const LandingPage = () => {
           </p>
         </footer>
       </main>
+
+      {/* Scroll To Top Button */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll to top"
+        className={`fixed bottom-6 right-6 z-50
+          w-12 h-12 rounded-full bg-[#1D1D4B] text-white
+          flex items-center justify-center shadow-lg
+          transition-all duration-300
+          ${showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}
+          hover:scale-110`}
+      >
+        ↑
+      </button>
     </div>
   );
 };
