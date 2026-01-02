@@ -52,7 +52,7 @@ const HomeHero = ({ setActiveTab }: HomeHeroProps) => {
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-black leading-[1.1] mb-4">
             <span className="text-[#1D1D4B]">SYSTEMS:</span> <br />
-            <span className="text-gray-800">The Goldmine</span>
+            <span className="text-gray-800">The Entrepreneurs Goldmine</span>
           </h1>
           <p className="text-[#D4A017] font-bold text-sm sm:text-base italic mb-4">
             Transforming Entrepreneurs into System-Driven Organizations
