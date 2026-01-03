@@ -212,7 +212,7 @@ const Contact = ({ initialSubject }: ContactProps) => {
               <form
                 name="contact-us"
                 method="POST"
-                data-netlify="true"
+                // data-netlify="true"
                 onSubmit={handleSubmit}
                 className="space-y-6"
                 // netlify-honeypot="bot-field"
