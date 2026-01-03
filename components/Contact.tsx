@@ -39,31 +39,33 @@ const Contact = ({ initialSubject }: ContactProps) => {
       .join("&");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    try {
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({ "form-name": "contact-us", ...formData }),
-      });
+  try {
+    const response = await fetch("/forms-check.html", { // Reference the static file
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        "form-name": "contact-us",
+        "bot-field": "", // Ensure honeypot is included
+        ...formData,
+      }).toString(),
+    });
 
+    if (response.ok) {
       setIsSuccess(true);
-
-      // Reset after success
-      setTimeout(() => {
-        setIsSuccess(false);
-        setFormData({ name: "", email: "", subject: "", message: "" });
-      }, 3000);
-    } catch {
-      // Keep failure simple but non-blocking
-      alert("Submission failed. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } else {
+      throw new Error("Form submission failed");
     }
-  };
-
+  } catch (error) {
+    console.error("Submission error:", error);
+    alert("There was an error sending your message.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-14 animate-in fade-in duration-700">
       {/* Header */}
