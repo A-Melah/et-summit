@@ -169,9 +169,9 @@ const FAQs = ({ setActiveTab, setContactSubject }: FAQProps) => {
 
           <button
             onClick={handleCTAClick}
-            className="mt-6 bg-[#D4A017] text-white px-10 py-4 rounded-xl font-black shadow-lg hover:scale-105 transition-all uppercase tracking-tighter"
+            className="mt-6 bg-[#D4A017] text-white px-10 py-4 rounded-xl font-black shadow-lg hover:scale-105 transition-all uppercase tracking-tighter active:scale-95 focus:outline-none focus:ring-4 focus:ring-[#1D1D4B]/30"
           >
-            Contact the Committee
+            Contact Us
           </button>
         </div>
       </div>

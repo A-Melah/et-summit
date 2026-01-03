@@ -58,7 +58,7 @@ const HomeHero = ({ setActiveTab }: HomeHeroProps) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center animate-in fade-in slide-in-from-bottom-4 duration-700 overflow-x-hidden">
       {/* ================= LEFT ================= */}
-      <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+      <div className="lg:col-span-9 space-y-6 sm:space-y-8">
         <div>
           <p className="text-[#D4A017] font-bold mb-2 uppercase text-[10px] sm:text-xs tracking-[0.2em]">
             Enterprise Transformation Summit 2026
@@ -145,36 +145,50 @@ const HomeHero = ({ setActiveTab }: HomeHeroProps) => {
       </div>
 
       {/* ================= RIGHT ================= */}
-      <div className="lg:col-span-5 flex justify-center lg:justify-end">
-        <div className="bg-white p-6 sm:p-10 rounded-[2.5rem] shadow-2xl border border-gray-100 w-full max-w-sm text-center transition-transform hover:-translate-y-1">
-          <h3 className="text-lg font-black text-[#1D1D4B] mb-1">
-            Get Your Reservation Now!
-          </h3>
-          <p className="text-xs text-gray-400 mb-8 font-medium italic">
-            Secure your spot today!
-          </p>
+      {/* ================= RIGHT ================= */}
+<div className="lg:col-span-3 flex justify-center lg:justify-end">
+  <div
+    className="
+      bg-white rounded-3xl border border-gray-100 shadow-2xl
+      w-full
+      max-w-xs sm:max-w-sm lg:max-w-[16rem]
+      p-5 sm:p-6
+      text-center
+    "
+  >
+    <h3 className="text-sm sm:text-base font-black text-[#1D1D4B] mb-1">
+      Get Your Reservation Now!
+    </h3>
 
-          <div className="relative inline-block">
-            <div className="bg-[#FF4500] text-white text-[10px] font-black py-1.5 px-6 rounded-t-xl uppercase tracking-wider -mb-px">
-              Scan to Register
-            </div>
-            <div className="bg-white p-4 border-2 border-gray-100 rounded-b-2xl shadow-inner">
-              <div className="w-40 h-40 sm:w-48 sm:h-48 bg-slate-50 flex items-center justify-center">
-                <Image
-                  src="/qr-code.png"
-                  alt="Registration QR Code"
-                  width={200}
-                  height={200}
-                />
-              </div>
-            </div>
-          </div>
+    <p className="text-[10px] sm:text-xs text-gray-400 mb-4 font-medium italic">
+      Secure your spot today!
+    </p>
 
-          <p className="mt-8 text-[11px] text-gray-400 font-semibold px-4 leading-relaxed uppercase tracking-tighter">
-            Don&apos;t miss out, reserve now for exclusive access. Act fast!
-          </p>
+    {/* QR Card */}
+    <div className="relative inline-block">
+      <div className="bg-[#FF4500] text-white text-[9px] font-black py-1 px-4 rounded-t-xl uppercase tracking-wider -mb-px">
+        Scan to Register
+      </div>
+
+      <div className="bg-white p-2.5 border-2 border-gray-100 rounded-b-2xl shadow-inner">
+        <div className="aspect-square w-28 sm:w-32 lg:w-30 bg-slate-50 flex items-center justify-center rounded-xl">
+          <Image
+            src="/qr-code.png"
+            alt="Registration QR Code"
+            width={200}
+            height={200}
+            className="w-full h-full object-contain"
+          />
         </div>
       </div>
+    </div>
+
+    <p className="mt-5 text-[10px] text-gray-400 font-semibold px-2 leading-snug uppercase tracking-tight">
+      Don&apos;t miss out — reserve now for exclusive access.
+    </p>
+  </div>
+</div>
+
     </div>
   );
 };

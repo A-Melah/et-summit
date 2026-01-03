@@ -54,19 +54,20 @@ const Sidebar = ({ isOpen, onClose, activeTab, setActiveTab }: SidebarProps) => 
       >
         {/* Logo Section */}
         <div className="px-6 py-6">
-          <Image
-            src="/ets-logo.png"
-            alt="Enterprise Transformation Summit Logo"
-            width={140}
-            height={64}
-            priority
-            className="h-auto w-auto" 
-    sizes="(max-width: 768px) 140px, 200px"
-          />
+<Image
+  src="/ets-logo.png"
+  alt="Enterprise Transformation Summit Logo"
+  width={140}
+  height={64}
+  priority
+  className="w-auto h-8 sm:h-10 md:h-12 lg:h-14"
+  style={{ height: "auto" }}
+/>
+
         </div>
 
         {/* Navigation Section */}
-        <nav className="px-4 space-y-1 grow overflow-y-auto">
+        <nav className="px-2 space-y-0 grow overflow-y-auto">
           {menuItems.map((item) => (
             <button
               key={item}
