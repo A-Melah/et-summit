@@ -33,8 +33,7 @@ const Contact = ({ initialSubject }: ContactProps) => {
   const encode = (data: Record<string, string>) =>
     Object.keys(data)
       .map(
-        (key) =>
-          encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
+        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
       )
       .join("&");
 
@@ -46,26 +45,46 @@ const Contact = ({ initialSubject }: ContactProps) => {
       await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({ "form-name": "contact-us", ...formData }),
+        body: encode({
+          "form-name": "contact-us",
+          ...formData,
+        }),
       });
 
       setIsSuccess(true);
 
-      // Reset after success
-      setTimeout(() => {
-        setIsSuccess(false);
-        setFormData({ name: "", email: "", subject: "", message: "" });
-      }, 3000);
+      // Reset fields after success
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
     } catch {
-      // Keep failure simple but non-blocking
-      alert("Submission failed. Please try again.");
+      setIsSuccess(false);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-14 animate-in fade-in duration-700">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-14">
+
+      {/* Netlify fallback form (build-time detection) */}
+      <form
+        name="contact-us"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        hidden
+      >
+        <input name="name" />
+        <input name="email" />
+        <input name="subject" />
+        <textarea name="message" />
+      </form>
+
       {/* Header */}
       <header className="space-y-4">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1D1D4B] border-l-8 border-[#D4A017] pl-5">
@@ -77,8 +96,8 @@ const Contact = ({ initialSubject }: ContactProps) => {
         </p>
       </header>
 
-      {/* Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+
         {/* LEFT COLUMN */}
         <div className="lg:col-span-5 h-full flex flex-col space-y-8">
           {/* Info Card */}
@@ -202,7 +221,7 @@ const Contact = ({ initialSubject }: ContactProps) => {
 
         {/* RIGHT COLUMN */}
         <div className="lg:col-span-7 rounded-[3.5rem] bg-white p-6 sm:p-10 lg:p-14 shadow-sm border border-slate-50">
-          
+
           {!isSuccess ? (
             <>
               <h3 className="mb-8 text-2xl font-black text-[#1D1D4B]">
@@ -213,18 +232,47 @@ const Contact = ({ initialSubject }: ContactProps) => {
                 name="contact-us"
                 method="POST"
                 data-netlify="true"
+                netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 className="space-y-6"
-                // netlify-honeypot="bot-field"
               >
+                {/* Hidden identifiers */}
                 <input type="hidden" name="form-name" value="contact-us" />
+                <input type="hidden" name="bot-field" />
 
                 <div className="grid gap-6 sm:grid-cols-2">
-                  <input required name="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Full Name" className="contact-input" />
-                  <input required name="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="Email Address" className="contact-input" />
+                  <input
+                    required
+                    name="name"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    placeholder="Full Name"
+                    className="contact-input"
+                  />
+
+                  <input
+                    required
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    placeholder="Email Address"
+                    className="contact-input"
+                  />
                 </div>
 
-                <select name="subject" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} className="contact-input text-gray-500">
+                <select
+                  name="subject"
+                  value={formData.subject}
+                  onChange={(e) =>
+                    setFormData({ ...formData, subject: e.target.value })
+                  }
+                  className="contact-input text-gray-500"
+                >
                   <option value="">Select Topic</option>
                   <option value="Executive Partnership">Executive Partnership</option>
                   <option value="Delegate Relations">Delegate Relations</option>
@@ -232,7 +280,17 @@ const Contact = ({ initialSubject }: ContactProps) => {
                   <option value="General Inquiry">General Inquiry</option>
                 </select>
 
-                <textarea required name="message" rows={6} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder="Detailed Inquiry..." className="contact-input resize-none" />
+                <textarea
+                  required
+                  name="message"
+                  rows={6}
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  placeholder="Detailed Inquiry..."
+                  className="contact-input resize-none"
+                />
 
                 <button
                   type="submit"
@@ -244,8 +302,7 @@ const Contact = ({ initialSubject }: ContactProps) => {
               </form>
             </>
           ) : (
-            /* SUCCESS STATE */
-            <div className="flex flex-col items-center justify-center text-center py-20 space-y-4 animate-in fade-in zoom-in duration-500">
+            <div className="flex flex-col items-center justify-center text-center py-20 space-y-4">
               <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-3xl">
                 ✓
               </div>
