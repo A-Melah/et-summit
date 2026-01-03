@@ -2,20 +2,22 @@
 
 import React, { useState } from "react";
 
-// Updated Speaker Card accepting a unique LinkedIn URL
-const SpeakerCard = ({ 
-  name, 
-  role, 
-  company, 
-  linkedinUrl 
-}: { 
-  name: string; 
-  role: string; 
-  company: string; 
-  linkedinUrl: string; 
+/* =========================
+   Speaker Card Component
+========================= */
+const SpeakerCard = ({
+  name,
+  role,
+  company,
+  linkedinUrl,
+}: {
+  name: string;
+  role: string;
+  company: string;
+  linkedinUrl: string;
 }) => (
   <div className="relative group bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 transition-all hover:shadow-xl hover:-translate-y-2">
-    {/* Image Container */}
+    {/* Image */}
     <div className="relative h-72 w-full bg-slate-200">
       <div className="flex items-center justify-center h-full text-slate-400">
         <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
@@ -23,13 +25,19 @@ const SpeakerCard = ({
         </svg>
       </div>
 
-      {/* Unique LinkedIn Hover Overlay */}
+      {/* LinkedIn Overlay */}
       <div className="absolute inset-0 bg-[#1D1D4B]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <a 
-          href={linkedinUrl} 
-          target="_blank" 
+        <a
+          href={linkedinUrl}
+          target="_blank"
           rel="noopener noreferrer"
-          className="bg-white p-3 rounded-full text-[#0077B5] hover:scale-110 transition-transform shadow-lg"
+          className="
+            bg-white p-3 rounded-full text-[#0077B5]
+            transition-all shadow-lg
+            hover:scale-110
+            active:scale-95
+            active:shadow-inner
+          "
           aria-label={`Visit ${name}'s LinkedIn Profile`}
         >
           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -39,134 +47,217 @@ const SpeakerCard = ({
       </div>
     </div>
 
-    {/* Info Area */}
+    {/* Info */}
     <div className="p-6 text-center">
       <h4 className="text-xl font-black text-[#1D1D4B] mb-1">{name}</h4>
-      <p className="text-[#D4A017] text-sm font-bold uppercase tracking-wider">{role}</p>
+      <p className="text-[#D4A017] text-sm font-bold uppercase tracking-wider">
+        {role}
+      </p>
       <p className="text-gray-400 text-xs mt-2 font-medium">{company}</p>
     </div>
   </div>
 );
 
+/* =========================
+   Main Component
+========================= */
 const Speakers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleNotifySubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Registration successful. Updates will be sent to ${email}.`);
-    setIsModalOpen(false);
-    setEmail("");
+    setIsSubmitting(true);
+
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+
+      // Auto-close modal
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setIsSuccess(false);
+        setEmail("");
+      }, 2500);
+    }, 1500);
   };
 
-  // Data array with unique LinkedIn URLs
   const featuredSpeakers = [
-    { 
-      name: "Cletus Akhigbe", 
-      role: "Summit Convener", 
+    {
+      name: "Cletus Akhigbe",
+      role: "Summit Convener",
       company: "Management Systems Advocate",
-      linkedinUrl: "https://www.linkedin.com/in/cletus-akhigbe/" 
+      linkedinUrl: "https://www.linkedin.com/in/cletus-akhigbe/",
     },
-    { 
-      name: "To be Announced", 
-      role: "Corporate Executive", 
+    {
+      name: "To be Announced",
+      role: "Corporate Executive",
       company: "Strategic Leadership",
-      linkedinUrl: "#" 
+      linkedinUrl: "#",
     },
-    { 
-      name: "To be Announced", 
-      role: "Systems Expert", 
+    {
+      name: "To be Announced",
+      role: "Systems Expert",
       company: "ISO 9001 Consultant",
-      linkedinUrl: "#" 
+      linkedinUrl: "#",
     },
-    { 
-      name: "To be Announced", 
-      role: "Thought Leader", 
+    {
+      name: "To be Announced",
+      role: "Thought Leader",
       company: "Business Excellence",
-      linkedinUrl: "#" 
-    }
+      linkedinUrl: "#",
+    },
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 animate-in fade-in duration-700 pb-20">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pb-20 overflow-x-hidden">
       {/* Header */}
       <section className="text-center md:text-left">
         <h2 className="text-3xl md:text-4xl font-black text-[#1D1D4B] border-l-8 border-[#D4A017] pl-5 mb-4">
           Speakers & Panelists
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl leading-relaxed">
-          Connecting you with renowned business leaders and corporate executives who have successfully transitioned from hustle to structured excellence.
+          Connecting you with renowned business leaders and corporate executives
+          who have successfully transitioned from hustle to structured
+          excellence.
         </p>
       </section>
 
-      {/* Speaker Categories [cite: 56-60] */}
+      {/* Categories */}
       <section className="flex flex-wrap gap-3">
-        {["Business Leaders", "Corporate Executives", "Systems Experts", "Successful Entrepreneurs", "Thought Leaders"].map((cat, i) => (
-          <span key={i} className="px-4 py-2 rounded-full border border-slate-200 text-[10px] font-black uppercase tracking-widest text-[#1D1D4B] bg-white">
+        {[
+          "Business Leaders",
+          "Corporate Executives",
+          "Systems Experts",
+          "Successful Entrepreneurs",
+          "Thought Leaders",
+        ].map((cat, i) => (
+          <span
+            key={i}
+            className="px-4 py-2 rounded-full border border-slate-200 text-[10px] font-black uppercase tracking-widest text-[#1D1D4B] bg-white"
+          >
             {cat}
           </span>
         ))}
       </section>
 
-      {/* Speakers Grid */}
+      {/* Grid */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {featuredSpeakers.map((speaker, i) => (
           <SpeakerCard key={i} {...speaker} />
         ))}
       </section>
 
-      {/* Lead Capture for Updates [cite: 61] */}
-      <section className="bg-[#1D1D4B] p-10 md:p-8 rounded-[3rem] text-center text-white shadow-2xl relative overflow-hidden">
-        <div className="relative z-10 space-y-6">
-          <h3 className="text-2xl md:text-4xl font-black">Full Lineup Coming Soon</h3>
-          <p className="text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            We are curating a world-class roster of experts to guide your transformation. Leave your email to receive the official reveal.
-          </p>
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="bg-[#D4A017] text-white px-4 py-4 rounded-full font-black shadow-lg hover:scale-105 transition-transform"
-          >
-            Notify Me of Updates
-          </button>
-        </div>
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4A017]/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+      {/* CTA */}
+      <section className="bg-[#1D1D4B] p-10 rounded-[3rem] text-center text-white shadow-2xl relative overflow-hidden">
+        <h3 className="text-2xl md:text-4xl font-black mb-4">
+          Full Lineup Coming Soon
+        </h3>
+        <p className="text-slate-300 max-w-2xl mx-auto mb-6">
+          Leave your email to receive the official speaker reveal.
+        </p>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="
+            bg-[#D4A017] px-8 py-4 rounded-full font-black
+            transition-all shadow-lg
+            hover:scale-105
+            active:scale-95
+            active:shadow-inner
+            focus:outline-none focus:ring-4 focus:ring-[#D4A017]/40
+          "
+        >
+          Notify Me of Updates
+        </button>
       </section>
 
-      {/* Official Contact  */}
-      <div className="text-center pt-2 border-t border-gray-100">
-        <p className="text-gray-500 mb-2 italic">For speaker recommendations or inquiries:</p>
-        <a 
-          href="mailto:info@enterprisetransformationsummit.org.ng" 
-          className="text-[#1D1D4B] font-black hover:text-[#D4A017] transition-colors"
+      {/* Contact */}
+      <div className="text-center pt-4 border-t border-gray-100">
+        <p className="text-gray-500 mb-2 italic">
+          For speaker recommendations or inquiries:
+        </p>
+        <a
+          href="mailto:info@enterprisetransformationsummit.org.ng"
+          className="
+            text-[#1D1D4B] font-black transition-colors
+            hover:text-[#D4A017]
+            break-all inline-block max-w-full
+          "
         >
           info@enterprisetransformationsummit.org.ng
         </a>
       </div>
 
-      {/* Email Capture Modal */}
+      {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-[#1D1D4B]/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1D1D4B]/60 backdrop-blur-sm">
           <div className="bg-white w-full max-w-md p-8 rounded-[2.5rem] shadow-2xl animate-in zoom-in duration-300">
-            <div className="flex justify-between items-start mb-6">
-              <h4 className="text-xl font-black text-[#1D1D4B]">Stay Informed</h4>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-300 hover:text-[#FF4500] font-bold">✕</button>
-            </div>
-            <form onSubmit={handleNotifySubmit} className="space-y-4">
-              <input 
-                type="email" 
-                required
-                placeholder="Enter your email address" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#D4A017] outline-none text-[#1D1D4B]"
-              />
-              <button 
-                type="submit"
-                className="w-full bg-[#1D1D4B] text-white py-4 rounded-xl font-black shadow-lg"
-              >
-                KEEP ME POSTED
-              </button>
-            </form>
+            {!isSuccess ? (
+              <>
+                <div className="flex justify-between mb-6">
+                  <h4 className="text-xl font-black text-[#1D1D4B]">
+                    Stay Informed
+                  </h4>
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="text-gray-300 hover:text-red-500"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <form onSubmit={handleNotifySubmit} className="space-y-4">
+                  <input
+                    type="email"
+                    required
+                    disabled={isSubmitting}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#D4A017] outline-none"
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="
+                      w-full bg-[#1D1D4B] text-white py-4 rounded-xl font-black
+                      transition-all shadow-lg
+                      hover:scale-[1.02]
+                      active:scale-95
+                      disabled:opacity-60 disabled:cursor-not-allowed
+                    "
+                  >
+                    {isSubmitting ? "SUBMITTING..." : "KEEP ME POSTED"}
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="text-center py-12 space-y-4 animate-in fade-in zoom-in duration-500">
+                <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 11.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <h4 className="text-2xl font-black text-[#1D1D4B]">
+                  You’re on the List 🎉
+                </h4>
+                <p className="text-gray-500">
+                  We’ll notify you as soon as the full lineup is revealed.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       )}

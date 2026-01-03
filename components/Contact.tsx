@@ -22,6 +22,7 @@ const Contact = ({ initialSubject }: ContactProps) => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     if (initialSubject) {
@@ -48,9 +49,15 @@ const Contact = ({ initialSubject }: ContactProps) => {
         body: encode({ "form-name": "contact-us", ...formData }),
       });
 
-      alert("Message successfully sent to the Organizing Summit Secretariat.");
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setIsSuccess(true);
+
+      // Reset after success
+      setTimeout(() => {
+        setIsSuccess(false);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      }, 3000);
     } catch {
+      // Keep failure simple but non-blocking
       alert("Submission failed. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -84,8 +91,19 @@ const Contact = ({ initialSubject }: ContactProps) => {
               {/* Email */}
               <div className="flex items-center gap-4">
                 <div className="shrink-0 flex items-center justify-center rounded-2xl bg-white/10 p-3 text-[#D4A017]">
-                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  {/* ORIGINAL ICON — RESTORED */}
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
                   </svg>
                 </div>
                 <div className="min-w-0">
@@ -101,8 +119,19 @@ const Contact = ({ initialSubject }: ContactProps) => {
               {/* WhatsApp */}
               <div className="flex items-center gap-4">
                 <div className="shrink-0 flex items-center justify-center rounded-2xl bg-white/10 p-3 text-[#D4A017]">
-                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.5 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.5a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  {/* ORIGINAL ICON — RESTORED */}
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.5 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.5a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
                   </svg>
                 </div>
                 <div>
@@ -126,9 +155,25 @@ const Contact = ({ initialSubject }: ContactProps) => {
               {/* Location */}
               <div className="flex items-center gap-4">
                 <div className="shrink-0 flex items-center justify-center rounded-2xl bg-white/10 p-3 text-[#D4A017]">
-                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  {/* ORIGINAL ICON — RESTORED */}
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
                   </svg>
                 </div>
                 <div>
@@ -156,44 +201,61 @@ const Contact = ({ initialSubject }: ContactProps) => {
         </div>
 
         {/* RIGHT COLUMN */}
-        <div className="lg:col-span-7 h-full flex flex-col rounded-[3.5rem] bg-white p-6 sm:p-10 lg:p-14 shadow-sm border border-slate-50">
-          <h3 className="mb-8 text-2xl font-black text-[#1D1D4B]">
-            Direct Communication
-          </h3>
+        <div className="lg:col-span-7 rounded-[3.5rem] bg-white p-6 sm:p-10 lg:p-14 shadow-sm border border-slate-50">
+          
+          {!isSuccess ? (
+            <>
+              <h3 className="mb-8 text-2xl font-black text-[#1D1D4B]">
+                Direct Communication
+              </h3>
 
-          <form
-            name="contact-us"
-            method="POST"
-            // autoComplete="on"
-            data-netlify="true"
-            onSubmit={handleSubmit}
-            className="space-y-6"
-          >
-            <input type="hidden" name="form-name" value="contact-us" autoComplete="on" />
+              <form
+                name="contact-us"
+                method="POST"
+                data-netlify="true"
+                onSubmit={handleSubmit}
+                className="space-y-6"
+              >
+                <input type="hidden" name="form-name" value="contact-us" />
 
-            <div className="grid gap-6 sm:grid-cols-2">
-              <input required name="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Full Name" className="contact-input" autoComplete="on" />
-              <input required name="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="Email Address" className="contact-input" autoComplete="on"/>
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <input required name="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Full Name" className="contact-input" />
+                  <input required name="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="Email Address" className="contact-input" />
+                </div>
+
+                <select name="subject" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} className="contact-input text-gray-500">
+                  <option value="">Select Topic</option>
+                  <option value="Executive Partnership">Executive Partnership</option>
+                  <option value="Delegate Relations">Delegate Relations</option>
+                  <option value="Media & Communications">Media & Communications</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                </select>
+
+                <textarea required name="message" rows={6} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder="Detailed Inquiry..." className="contact-input resize-none" />
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full rounded-2xl bg-[#1D1D4B] py-5 font-black uppercase tracking-tight text-white transition hover:bg-[#D4A017] disabled:opacity-60"
+                >
+                  {isSubmitting ? "Submitting..." : "Send Message"}
+                </button>
+              </form>
+            </>
+          ) : (
+            /* SUCCESS STATE */
+            <div className="flex flex-col items-center justify-center text-center py-20 space-y-4 animate-in fade-in zoom-in duration-500">
+              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-3xl">
+                ✓
+              </div>
+              <h4 className="text-2xl font-black text-[#1D1D4B]">
+                Message Sent Successfully
+              </h4>
+              <p className="text-gray-500 max-w-md">
+                The Summit Secretariat has received your message and will respond shortly.
+              </p>
             </div>
-
-            <select name="subject" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} className="contact-input text-gray-500">
-              <option value="">Select Topic</option>
-              <option value="Executive Partnership">Executive Partnership</option>
-              <option value="Delegate Relations">Delegate Relations</option>
-              <option value="Media & Communications">Media & Communications</option>
-              <option value="General Inquiry">General Inquiry</option>
-            </select>
-
-            <textarea required name="message" rows={6} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder="Detailed Inquiry..." className="contact-input resize-none" />
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full rounded-2xl bg-[#1D1D4B] py-5 font-black uppercase tracking-tight text-white transition hover:bg-[#D4A017] disabled:opacity-60"
-            >
-              {isSubmitting ? "Submitting..." : "Send Message"}
-            </button>
-          </form>
+          )}
         </div>
       </div>
 
