@@ -85,33 +85,37 @@ const Sponsorship = () => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({
-        "form-name": "sponsorship-inquiry",
-        tier: selectedTier,
-        ...formData,
-      }),
+  fetch("/forms-check.html", { // Target the static file path
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      "form-name": "sponsorship-inquiry",
+      "bot-field": "", // Always include honeypot
+      tier: selectedTier,
+      ...formData,
+    }).toString(),
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error("Submission failed");
+      
+      setIsSubmitting(false);
+      setIsSuccess(true);
+
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setIsSuccess(false);
+        setFormData({ name: "", company: "", email: "", phone: "" });
+      }, 2800);
     })
-      .then(() => {
-        setIsSubmitting(false);
-        setIsSuccess(true);
-
-        setTimeout(() => {
-          setIsModalOpen(false);
-          setIsSuccess(false);
-          setFormData({ name: "", company: "", email: "", phone: "" });
-        }, 2800);
-      })
-      .catch(() => {
-        setIsSubmitting(false);
-        alert("Submission failed. Please try again.");
-      });
-  };
+    .catch((error) => {
+      setIsSubmitting(false);
+      console.error(error);
+      alert("Submission failed. Please try again.");
+    });
+};
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pb-24 animate-in fade-in duration-700">
@@ -256,11 +260,12 @@ const Sponsorship = () => {
                 <form
                   name="sponsorship-inquiry"
                   method="POST"
-                  data-netlify="true"
+                //   data-netlify="true"
                   onSubmit={handleSubmit}
                   className="grid gap-4"
                 >
                   <input type="hidden" name="form-name" value="sponsorship-inquiry" />
+                  <input type="hidden" name="bot-field" />
                   <input type="hidden" name="tier" value={selectedTier} />
 
                   {["name", "company", "email", "phone"].map((field, i) => (
