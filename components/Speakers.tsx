@@ -71,18 +71,38 @@ const Speakers = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
+    const handleNotifySubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-      // Auto-close modal
-      setTimeout(() => {
-        setIsModalOpen(false);
-        setIsSuccess(false);
-        setEmail("");
-      }, 2500);
-    }, 1500);
+  try {
+    const response = await fetch("/forms-check.html", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        "form-name": "speaker-updates",
+        "bot-field": "",
+        email: email,
+      }).toString(),
+    });
+
+    if (!response.ok) throw new Error("Submission failed");
+
+    setIsSuccess(true);
+
+    // Auto-close modal after success
+    setTimeout(() => {
+      setIsModalOpen(false);
+      setIsSuccess(false);
+      setEmail("");
+    }, 2500);
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    alert("Something went wrong. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   };
 
   const featuredSpeakers = [
@@ -209,31 +229,34 @@ const Speakers = () => {
                   </button>
                 </div>
 
-                <form onSubmit={handleNotifySubmit} className="space-y-4">
-                  <input
-                    type="email"
-                    required
-                    disabled={isSubmitting}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
-                    className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#D4A017] outline-none"
-                  />
+                <form 
+  name="speaker-updates" 
+  onSubmit={handleNotifySubmit} 
+  className="space-y-4"
+>
+  {/* Hidden identifiers for Netlify */}
+  <input type="hidden" name="form-name" value="speaker-updates" />
+  <input type="hidden" name="bot-field" />
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="
-                      w-full bg-[#1D1D4B] text-white py-4 rounded-xl font-black
-                      transition-all shadow-lg
-                      hover:scale-[1.02]
-                      active:scale-95
-                      disabled:opacity-60 disabled:cursor-not-allowed
-                    "
-                  >
-                    {isSubmitting ? "SUBMITTING..." : "KEEP ME POSTED"}
-                  </button>
-                </form>
+  <input
+    type="email"
+    name="email" // Added name attribute
+    required
+    disabled={isSubmitting}
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+    placeholder="Enter your email address"
+    className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#D4A017] outline-none"
+  />
+
+  <button
+    type="submit"
+    disabled={isSubmitting}
+    className="w-full bg-[#1D1D4B] text-white py-4 rounded-xl font-black transition-all shadow-lg hover:scale-[1.02] active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
+  >
+    {isSubmitting ? "SUBMITTING..." : "KEEP ME POSTED"}
+  </button>
+</form>
               </>
             ) : (
               <div className="text-center py-12 space-y-4 animate-in fade-in zoom-in duration-500">
